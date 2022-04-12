@@ -1,0 +1,127 @@
+---
+title: "Customer Service Standards, Egypt"
+author: "Ensar Pajtesa"
+date: "05/04/2022"
+output: pdf_document
+fontsize: 12pt
+bibliography: references.bib
+thanks: 'Code and data can be found at: https://github.com/ensarpajtesa1/egypthealthanddata'
+abstract: While many countries are advancing in terms of human rights and activist movements we study the service provided to women in developing countries. Specifically Egypt. We are hypothesizing that treatment in private sector and knowledge regarding certain health issues will be hindered. We find the information is not being translated to women, however unable to conclude whether this stems from lack of knowledge or not wanting women to have this information.
+---
+
+## Introduction
+
+Developing countries often see vast differences in issues at hand in a humanitarian and political point of view than many developed countries. Public services that are often times underestimated and taken for granted such as cleanliness, willingness to offer services, providing insight to patients, having privacy during consultations, etc. 
+
+Egypt is known as one of the oldest places of the modern civilized world. With tourists flocking to the pyramids of Gyza in the millions every year. This paper is interested in finiding the service offerings for the residents of Egypt. Specifically in the perspective of women. Many developing nations still excercise different viewpoints and laws when it comes to the treatment and rights of women. This has an effect on the treatment they receive in the public sector. We will look to analyze the treatment received by women at a wealth of different clinics across Egypt to study if there has been appropriate reform or of there is still work to do in this sense. 
+
+We will hypothesize that there will still be lack on information and service provided to women regarding certain health factors that are still viewed in the "old fashioned" way. Namely around the idea of giving birth and family planning.
+
+## Data
+
+The data collected for this analysis is from the DHS or Demographic and Health survey conducted in 1998. The data used for this analysis is found on page 22 of the report. 
+
+```{r, include=FALSE}
+library(dplyr)
+library(knitr)
+library(tidyverse)
+library(kableExtra)
+library(reshape2)
+
+df = read.csv("/Users/ensarpajtesa/Desktop/Personal/School/STA304/Paper 4/Inputs/df.csv")
+
+```
+
+The variables noted are collected based on responses from women who received care from the institutions listed in the Service.Sector Variable. This consist of both prive and public sector and our main goal in the analysis of this dataset is to see where the people believe to be the shortcomings of this service.
+
+For this analysis we are using `R` [@Team:2020wf], `tidyverse` [@Wickham:2019vq] and `dplyr` [@Wickham:2021vf] functions. For the creation of figures and tables we will use `ggplot2` [@Wickham:2016tn], `kableextra` [@Zhu:2020vy] and `reshape2` [@Wickham:2007tu]. The package `knitr` [@Xie:2021vq] is used to generate the R markdown report. 
+
+We will use these packages to first run some exploratory tests and see what kind of trends are seen in this data. We see figures 1 through 7 based on the different sectors and the service provided.
+
+
+```{r, echo=FALSE, fig.height=12, fig.width=10}
+library(ggplot2)
+library(ggpubr)
+
+graph1 = ggbarplot(df, y= "Quick.Service", x = "Service.Sector",
+       sort.val = "asc",
+       color="blue",
+       ) +
+  labs(y = "Percentage of People that Experienced Quick Service", x = "Sector", title = "Quick Service Rate") +
+  coord_flip()
+
+graph2 = ggbarplot(df, y= "Polite.treatment", x = "Service.Sector",
+       sort.val = "asc",
+       color="blue",
+       ) +
+  labs(y = "Percentage of People that Experienced Polite Treatment", x = "Sector", title = "Polite Treatment Rate") +
+  coord_flip()
+
+graph3 = ggbarplot(df, y= "Information.about.methods", x = "Service.Sector",
+       sort.val = "asc",
+       color="blue",
+       ylim=c(0, 100)
+       ) +
+  labs(y = "Percentage of People that Were given Information About Methods", x = "Sector", title = "Information About Methods Rate")+
+  coord_flip()
+
+graph4 = ggbarplot(df, y= "Information.about.side.effects", x = "Service.Sector",
+       sort.val = "asc",
+       color="blue",
+       ylim=c(0, 100)
+       ) +
+  labs(y = "Percentage of People that Were given Information About Side Effects", x = "Sector", title = "Information About Side Effects Rate") +
+  coord_flip()
+
+graph5 = ggbarplot(df, y= "Privacy.during.consultation", x = "Service.Sector",
+       sort.val = "asc",
+       color="blue",
+       ) +
+  labs(y = "Percentage of People that Experienced Privacy", x = "Sector", title = "Privacy During Consultation Rate")+
+  coord_flip()
+
+
+graph6 = ggbarplot(df, y= "Clean.surroundings", x = "Service.Sector", 
+          sort.val = "asc",
+          color="blue",
+          ) +
+  labs(y = "Percentage of People that Experienced Clean Services", x = "Sector", title = "Clean Service Rate")+
+  coord_flip()
+
+
+graph7 = ggbarplot(df, y = "Affordable.costs", x = "Service.Sector",            
+          sort.val = "asc",
+          color="blue",
+          ) +
+  labs(y = "Percentage of Services Offered at Affordable Costs", x = "Sector", title = "Affordable Costs Rate")+
+  coord_flip()
+
+
+ggarrange(graph1, graph2, graph3, graph4, graph5, graph6, graph7, 
+          labels = c("Figure 1", "Figure 2", "Figure 3", "Figure 4", "Figure 5", "Figure 6", "Figure 7"),
+          heights = c(1,1),
+          ncol = 2, nrow = 4)
+
+
+```
+
+## Results
+
+We can notice from the graphs that Figure 3 and 4 which correspond to information is ranked very low. This tells us something interesting about the service provided to women. It seems as though they are being treated well and are find clean, private areas. However the lack of information provided to them is crucial.
+
+We see that specifically information about methods and information about side effects are not being portrayed to women.
+
+Rates as low as 49.5% for information on side effects at other public sectors. As well as low as 49.8% for information on methods at Mosque's. 
+
+Our hypothesis that private sector will have worse statitics based on heavily patriarchial based society was rejected as the highest values for information based statistic measured arose from prive clinics and doctors as well as 5 star gold clinics.
+
+## Discussion
+
+Why is any of this analysis important? Well because people need information just as bad as they need amenities. If the general public is not informed about certain aspects of their life then how can they be expected to make change for the better. We see that some private doctors and clinics have been making progress but the government must implement funding to train health staff to be able to provide the answers patients are looking for.
+
+\pagebreak
+
+## Works Cited
+
+
+
